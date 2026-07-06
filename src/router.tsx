@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import PrototypeHome from '@/pages/PrototypeHome';
 import ElderlyApp from '@/pages/elderly/ElderlyApp';
 import FamilyMiniApp from '@/pages/family/FamilyMiniApp';
@@ -8,7 +8,7 @@ import GovernmentDashboard from '@/pages/government/GovernmentDashboard';
 
 const AppRouter: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         {/* 原型展示主页 */}
         <Route path="/" element={<PrototypeHome />} />
@@ -28,7 +28,7 @@ const AppRouter: React.FC = () => {
         {/* 默认路由 */}
         <Route path="*" element={<PrototypeHome />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
