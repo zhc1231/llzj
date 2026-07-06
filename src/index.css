@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 引入思源黑体 CDN */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+  font-family: "Source Han Sans CN", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 适老化全局样式 */
+body {
+  font-size: 24px; /* 基础字体24px，比常规APP大50% */
+  line-height: 1.5;
+  color: #2C3E50; /* 深蓝色，稳重易读 */
+  background-color: #FFFFFF;
+}
+
+/* 最小点击区域48x48px */
+button, a, [role="button"] {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+/* 滚动条：全局隐藏（手机原型效果） */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent !important;
+}
+
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* 适老化动画效果 */
+@keyframes pulse-voice {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-voice {
+  animation: pulse-voice 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 字体可调节 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 高对比度模式 */
+.high-contrast {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-color: #000000;
+}
+
+/* 大字模式（32px基础） */
+.large-font {
+  font-size: 32px !important;
+}
+
+/* 紧凑字模式（24px基础） */
+.normal-font {
+  font-size: 24px !important;
+}
