@@ -25,8 +25,10 @@ import {
   Trophy,
   Crown
 } from 'lucide-react';
+import { useNav } from './navigation';
 
 const LifeServices: React.FC = () => {
+  const { navigate } = useNav();
   const menuGroups = [
     {
       title: '我的服务',
@@ -83,12 +85,12 @@ const LifeServices: React.FC = () => {
         <div className="absolute inset-0 px-5 pt-4 flex flex-col">
           {/* 顶部工具栏 */}
           <div className="flex justify-end mb-3">
-            <button className="w-11 h-11 rounded-2xl bg-white/25 backdrop-blur-md flex items-center justify-center shadow-md">
+            <button className="w-11 h-11 rounded-2xl bg-white/25 backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer" onClick={() => navigate('settings')}>
               <Settings className="w-5 h-5 text-white" />
             </button>
           </div>
           {/* 资料卡片 */}
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-4 mb-4 cursor-pointer" onClick={() => navigate('profile')}>
             <div className="relative">
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-300 to-orange-500 flex items-center justify-center shadow-xl ring-4 ring-white/30 flex-shrink-0">
                 <User className="w-11 h-11 text-white" strokeWidth={2} />
@@ -108,7 +110,7 @@ const LifeServices: React.FC = () => {
                 <span className="px-2.5 py-1 bg-emerald-400/90 text-white text-xs rounded-full font-bold">健康分 86</span>
               </div>
             </div>
-            <button className="px-4 py-2 bg-white/25 backdrop-blur-md text-white text-sm rounded-2xl border border-white/30 flex-shrink-0 font-bold">
+            <button className="px-4 py-2 bg-white/25 backdrop-blur-md text-white text-sm rounded-2xl border border-white/30 flex-shrink-0 font-bold" onClick={(e) => e.stopPropagation()}>
               编辑
             </button>
           </div>
@@ -131,8 +133,20 @@ const LifeServices: React.FC = () => {
           <div className="grid grid-cols-4 gap-2">
             {stats.map((item, index) => {
               const IconComponent = item.icon;
+              const handleStatClick = () => {
+                switch (item.label) {
+                  case '订单':
+                    navigate('orders');
+                    break;
+                  case '钱包':
+                  case '优惠券':
+                  case '积分':
+                    navigate('service-detail');
+                    break;
+                }
+              };
               return (
-                <button key={index} className="flex flex-col items-center gap-1.5 py-2 rounded-2xl hover:bg-slate-50 transition-colors">
+                <button key={index} className="flex flex-col items-center gap-1.5 py-2 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer" onClick={handleStatClick}>
                   <IconComponent className={`w-6 h-6 ${item.color}`} />
                   <span className="text-xl font-bold text-slate-800">{item.value}</span>
                   <span className="text-xs text-slate-500">{item.label}</span>
@@ -179,10 +193,31 @@ const LifeServices: React.FC = () => {
           <div className="bg-white rounded-3xl p-2.5 shadow-lg">
             {group.items.map((item, index) => {
               const IconComponent = item.icon;
+              const handleMenuClick = () => {
+                if (group.title === '家庭与关怀') {
+                  navigate('profile');
+                } else {
+                  switch (item.label) {
+                    case '我的订单':
+                      navigate('orders');
+                      break;
+                    case '我的赛事':
+                      navigate('guandan-detail');
+                      break;
+                    case '我的钱包':
+                    case '优惠券':
+                    case '我的收藏':
+                    case '我的关注':
+                      navigate('service-detail');
+                      break;
+                  }
+                }
+              };
               return (
                 <button
                   key={index}
-                  className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left"
+                  className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left cursor-pointer"
+                  onClick={handleMenuClick}
                 >
                   <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-md flex-shrink-0`}>
                     <IconComponent className="w-6 h-6 text-white" />
@@ -208,7 +243,8 @@ const LifeServices: React.FC = () => {
             return (
               <button
                 key={index}
-                className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left"
+                className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left cursor-pointer"
+                onClick={() => navigate('settings')}
               >
                 <div className={`w-10 h-10 rounded-xl ${item.iconBg} flex items-center justify-center flex-shrink-0`}>
                   <IconComponent className={`w-5 h-5 ${item.color}`} />
@@ -231,7 +267,8 @@ const LifeServices: React.FC = () => {
             return (
               <button
                 key={index}
-                className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left"
+                className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left cursor-pointer"
+                onClick={() => navigate('settings')}
               >
                 <IconComponent className={`w-5 h-5 ${item.color}`} />
                 <span className="flex-1 text-base font-medium text-slate-700">{item.label}</span>

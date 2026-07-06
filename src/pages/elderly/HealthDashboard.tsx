@@ -23,8 +23,10 @@ import {
   Moon,
   Eye
 } from 'lucide-react';
+import { useNav } from './navigation';
 
 const HealthDashboard: React.FC = () => {
+  const { navigate } = useNav();
   const [medicationTaken, setMedicationTaken] = useState([true, false, true]);
 
   const healthData = [
@@ -150,7 +152,7 @@ const HealthDashboard: React.FC = () => {
           </div>
           <button className="text-slate-400 text-sm">管理</button>
         </div>
-        <div className="bg-white rounded-3xl p-5 shadow-lg">
+        <div className="bg-white rounded-3xl p-5 shadow-lg cursor-pointer" onClick={() => navigate('medication-detail')}>
           <div className="space-y-4">
             {medications.map((med, index) => (
               <div key={index} className="flex items-center gap-4">
@@ -169,7 +171,7 @@ const HealthDashboard: React.FC = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => toggleMedication(index)}
+                  onClick={(e) => { e.stopPropagation(); toggleMedication(index); }}
                   className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-md ${
                     medicationTaken[index]
                       ? 'bg-gradient-to-br from-emerald-500 to-teal-500 text-white'
@@ -199,7 +201,7 @@ const HealthDashboard: React.FC = () => {
           {healthData.map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div key={index} className={`bg-white rounded-3xl p-4 shadow-lg border ${item.borderColor}`}>
+              <div key={index} className={`bg-white rounded-3xl p-4 shadow-lg border ${item.borderColor} cursor-pointer`} onClick={() => navigate('health-data-detail', { type: item.label, value: item.value, unit: item.unit })}>
                 <div className="flex items-center justify-between mb-2.5">
                   <div className={`w-10 h-10 rounded-xl ${item.bgColor} flex items-center justify-center`}>
                     <IconComponent className={`w-5 h-5 ${item.color}`} />
@@ -238,8 +240,22 @@ const HealthDashboard: React.FC = () => {
         <div className="grid grid-cols-2 gap-3.5">
           {quickServices.map((service, index) => {
             const IconComponent = service.icon;
+            const handleServiceClick = () => {
+              switch (service.label) {
+                case 'AI问诊':
+                case '健康咨询':
+                  navigate('ai-consult');
+                  break;
+                case '用药提醒':
+                  navigate('medication-detail');
+                  break;
+                case '预约挂号':
+                  navigate('appointment');
+                  break;
+              }
+            };
             return (
-              <button key={index} className="bg-white rounded-3xl p-5 shadow-lg hover:shadow-xl transition-shadow text-left">
+              <button key={index} className="bg-white rounded-3xl p-5 shadow-lg hover:shadow-xl transition-shadow text-left cursor-pointer" onClick={handleServiceClick}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg`}>
                     <IconComponent className="w-7 h-7 text-white" />
@@ -279,7 +295,7 @@ const HealthDashboard: React.FC = () => {
           {healthAdvices.map((advice, index) => {
             const IconComponent = advice.icon;
             return (
-              <div key={index} className="bg-white rounded-3xl p-5 shadow-lg flex items-center gap-4">
+              <div key={index} className="bg-white rounded-3xl p-5 shadow-lg flex items-center gap-4 cursor-pointer" onClick={() => navigate('ai-consult')}>
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${advice.color} flex items-center justify-center shadow-md flex-shrink-0`}>
                   <IconComponent className="w-7 h-7 text-white" />
                 </div>

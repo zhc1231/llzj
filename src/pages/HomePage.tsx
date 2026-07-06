@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNav } from './elderly/navigation';
 import {
   Stethoscope,
   Pill,
@@ -35,6 +36,8 @@ import {
 } from 'lucide-react';
 
 const HomePage: React.FC = () => {
+  const { navigate } = useNav();
+
   const [currentTime] = useState(new Date().toLocaleDateString('zh-CN', {
     month: 'long',
     day: 'numeric',
@@ -177,9 +180,10 @@ const HomePage: React.FC = () => {
           {banners.map((banner, idx) => (
             <div
               key={idx}
-              className={`absolute inset-0 transition-opacity duration-700 ${
+              className={`absolute inset-0 transition-opacity duration-700 cursor-pointer ${
                 idx === bannerIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
               }`}
+              onClick={() => navigate('service-detail', { title: banner.title, price: '99' })}
             >
               <img
                 src={banner.image}
@@ -209,7 +213,11 @@ const HomePage: React.FC = () => {
             {quickActions.map((action, index) => {
               const IconComponent = action.icon;
               return (
-                <button key={index} className="flex flex-col items-center gap-2 py-1 rounded-xl hover:bg-slate-50 transition-all active:scale-95">
+                <button
+                  key={index}
+                  className="flex flex-col items-center gap-2 py-1 rounded-xl hover:bg-slate-50 transition-all active:scale-95 cursor-pointer"
+                  onClick={() => navigate('service-detail', { title: action.label, price: '68' })}
+                >
                   <div className={`w-12 h-12 rounded-xl ${action.iconBg} flex items-center justify-center shadow-sm`}>
                     <IconComponent className={`w-6 h-6 ${action.color}`} />
                   </div>
@@ -223,7 +231,10 @@ const HomePage: React.FC = () => {
 
       {/* ====== 掼蛋比赛专区（独立卡片） ====== */}
       <div className="px-4 mt-4">
-        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-2xl p-4 shadow-xl">
+        <div
+          className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-2xl p-4 shadow-xl cursor-pointer"
+          onClick={() => navigate('guandan-detail')}
+        >
           <div className="flex items-center gap-3">
             <div className="w-14 h-14 rounded-2xl bg-white/30 backdrop-blur-md flex items-center justify-center flex-shrink-0 shadow-lg">
               <Trophy className="w-8 h-8 text-white" />
@@ -266,17 +277,21 @@ const HomePage: React.FC = () => {
           </button>
         </div>
         <div className="grid grid-cols-2 gap-2.5">
-          {healthData.map((data, index) => (
-            <div key={index} className="bg-white rounded-2xl p-3.5 shadow-lg">
+          {healthData.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl p-3.5 shadow-lg cursor-pointer"
+              onClick={() => navigate('health-data-detail', { type: item.label, value: item.value, unit: item.unit || '' })}
+            >
               <div className="flex items-center justify-between mb-2">
-                <p className="text-slate-500 text-xs font-medium">{data.label}</p>
-                <div className={`px-2 py-0.5 ${data.bg} ${data.color} rounded-full text-[10px] font-bold`}>
-                  {data.status}
+                <p className="text-slate-500 text-xs font-medium">{item.label}</p>
+                <div className={`px-2 py-0.5 ${item.bg} ${item.color} rounded-full text-[10px] font-bold`}>
+                  {item.status}
                 </div>
               </div>
               <div className="flex items-baseline gap-0.5">
-                <span className={`text-2xl font-bold ${data.color}`}>{data.value}</span>
-                {data.unit && <span className="text-slate-400 text-xs">{data.unit}</span>}
+                <span className={`text-2xl font-bold ${item.color}`}>{item.value}</span>
+                {item.unit && <span className="text-slate-400 text-xs">{item.unit}</span>}
               </div>
             </div>
           ))}
@@ -298,24 +313,28 @@ const HomePage: React.FC = () => {
           </button>
         </div>
         <div className="grid grid-cols-2 gap-2.5">
-          {todayActivities.map((activity, index) => (
-            <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg">
+          {todayActivities.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl overflow-hidden shadow-lg cursor-pointer"
+              onClick={() => navigate('activity-detail', { title: item.title, time: item.time, location: item.location, image: item.image })}
+            >
               <div className="relative h-20 bg-slate-100">
                 <img
-                  src={activity.image}
-                  alt={activity.title}
+                  src={item.image}
+                  alt={item.title}
                   className="w-full h-full object-cover"
                 />
-                <span className={`absolute top-2 left-2 px-2 py-0.5 ${activity.tagColor} rounded-full text-[10px] font-bold shadow-sm`}>
-                  {activity.tag}
+                <span className={`absolute top-2 left-2 px-2 py-0.5 ${item.tagColor} rounded-full text-[10px] font-bold shadow-sm`}>
+                  {item.tag}
                 </span>
               </div>
               <div className="p-3">
-                <h3 className="text-sm font-bold text-slate-800 mb-1.5 truncate">{activity.title}</h3>
+                <h3 className="text-sm font-bold text-slate-800 mb-1.5 truncate">{item.title}</h3>
                 <div className="space-y-1 text-[11px] text-slate-500">
                   <div className="flex items-center gap-1">
                     <Clock className="w-3 h-3" />
-                    <span>{activity.time}</span>
+                    <span>{item.time}</span>
                   </div>
                 </div>
                 <button className="w-full mt-2.5 bg-gradient-to-r from-primary to-orange-400 text-white py-2 rounded-lg text-xs font-bold shadow-md">
@@ -358,14 +377,18 @@ const HomePage: React.FC = () => {
         </div>
         <div className="bg-white rounded-2xl p-4 shadow-lg">
           <div className="grid grid-cols-4 gap-y-4 gap-x-1.5">
-            {services.map((service, index) => {
-              const IconComponent = service.icon;
+            {services.map((item, index) => {
+              const IconComponent = item.icon;
               return (
-                <button key={index} className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-md`}>
+                <button
+                  key={index}
+                  className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform cursor-pointer"
+                  onClick={() => navigate('service-detail', { title: item.label, price: '88' })}
+                >
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-md`}>
                     <IconComponent className="w-6 h-6 text-white" strokeWidth={2} />
                   </div>
-                  <span className="text-xs font-bold text-slate-700">{service.label}</span>
+                  <span className="text-xs font-bold text-slate-700">{item.label}</span>
                 </button>
               );
             })}
@@ -389,7 +412,11 @@ const HomePage: React.FC = () => {
         </div>
         <div className="space-y-3">
           {recommendedItems.map((item, index) => (
-            <div key={index} className="bg-white rounded-2xl p-4 shadow-lg flex items-center gap-4">
+            <div
+              key={index}
+              className="bg-white rounded-2xl p-4 shadow-lg flex items-center gap-4 cursor-pointer"
+              onClick={() => navigate('service-detail', { title: item.title, price: item.price })}
+            >
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center flex-shrink-0 shadow-md">
                 <Gift className="w-7 h-7 text-white" />
               </div>
@@ -425,14 +452,18 @@ const HomePage: React.FC = () => {
         </div>
         <div className="bg-white rounded-2xl p-4 shadow-lg">
           <div className="grid grid-cols-3 gap-3">
-            {lifeServices.map((service, index) => {
-              const IconComponent = service.icon;
+            {lifeServices.map((item, index) => {
+              const IconComponent = item.icon;
               return (
-                <button key={index} className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-md`}>
+                <button
+                  key={index}
+                  className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform cursor-pointer"
+                  onClick={() => navigate('service-detail', { title: item.label, price: '58' })}
+                >
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-md`}>
                     <IconComponent className="w-6 h-6 text-white" />
                   </div>
-                  <span className="text-xs font-bold text-slate-700">{service.label}</span>
+                  <span className="text-xs font-bold text-slate-700">{item.label}</span>
                 </button>
               );
             })}
@@ -442,7 +473,10 @@ const HomePage: React.FC = () => {
 
       {/* ====== 附近服务站 ====== */}
       <div className="px-4 mt-4">
-        <div className="relative rounded-2xl overflow-hidden shadow-xl">
+        <div
+          className="relative rounded-2xl overflow-hidden shadow-xl cursor-pointer"
+          onClick={() => navigate('service-detail')}
+        >
           <img
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=85"
             alt="station"
@@ -480,16 +514,20 @@ const HomePage: React.FC = () => {
           </button>
         </div>
         <div className="bg-white rounded-2xl shadow-lg divide-y divide-slate-100">
-          {newsItems.map((news, index) => (
-            <button key={index} className="w-full px-4 py-3 flex items-center gap-3 text-left">
+          {newsItems.map((item, index) => (
+            <button
+              key={index}
+              className="w-full px-4 py-3 flex items-center gap-3 text-left cursor-pointer"
+              onClick={() => navigate('news-detail')}
+            >
               <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center flex-shrink-0">
                 <Newspaper className="w-5 h-5 text-sky-500" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-700 truncate">{news.title}</p>
+                <p className="text-sm font-medium text-slate-700 truncate">{item.title}</p>
                 <div className="flex items-center gap-2 mt-0.5">
-                  <span className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full text-[10px] font-medium">{news.tag}</span>
-                  <span className="text-xs text-slate-400">{news.time}</span>
+                  <span className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full text-[10px] font-medium">{item.tag}</span>
+                  <span className="text-xs text-slate-400">{item.time}</span>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />

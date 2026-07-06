@@ -14,8 +14,10 @@ import {
   Star,
   Gift
 } from 'lucide-react';
+import { useNav } from './navigation';
 
 const AIGCStudio: React.FC = () => {
+  const { navigate } = useNav();
   const [activeTab, setActiveTab] = useState('all');
 
   const tools = [
@@ -70,7 +72,7 @@ const AIGCStudio: React.FC = () => {
 
       {/* 推荐卡片 */}
       <div className="mx-5 -mt-8 relative z-10">
-        <div className="bg-white rounded-3xl p-5 shadow-xl flex items-center gap-4">
+        <div className="bg-white rounded-3xl p-5 shadow-xl flex items-center gap-4 cursor-pointer" onClick={() => navigate('aigc-create', { type: 'painting' })}>
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-400 to-pink-400 flex items-center justify-center shadow-lg flex-shrink-0">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
@@ -101,7 +103,7 @@ const AIGCStudio: React.FC = () => {
         </div>
         <div className="grid grid-cols-3 gap-3.5">
           {myWorks.map((work, index) => (
-            <div key={index} className="relative rounded-2xl overflow-hidden shadow-lg">
+            <div key={index} className="relative rounded-2xl overflow-hidden shadow-lg cursor-pointer" onClick={() => navigate('work-detail', { title: work.title, image: work.image, type: work.type })}>
               <div className="aspect-square bg-slate-100">
                 <img src={work.image} alt={work.title} className="w-full h-full object-cover" />
               </div>
@@ -132,7 +134,7 @@ const AIGCStudio: React.FC = () => {
           {tools.map((tool, index) => {
             const IconComponent = tool.icon;
             return (
-              <button key={index} className="bg-white rounded-3xl p-5 shadow-lg hover:shadow-xl transition-shadow text-left">
+              <button key={index} className="bg-white rounded-3xl p-5 shadow-lg hover:shadow-xl transition-shadow text-left cursor-pointer" onClick={() => navigate('aigc-create', { type: tool.label })}>
                 <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center shadow-lg mb-3`}>
                   <IconComponent className="w-7 h-7 text-white" />
                   {tool.badge && (
@@ -166,7 +168,7 @@ const AIGCStudio: React.FC = () => {
         </div>
         <div className="space-y-3.5">
           {activities.map((activity, index) => (
-            <div key={index} className="bg-white rounded-3xl p-5 shadow-lg">
+            <div key={index} className="bg-white rounded-3xl p-5 shadow-lg cursor-pointer" onClick={() => navigate('activity-detail', { title: activity.title })}>
               <div className="flex items-center justify-between mb-2.5">
                 <h3 className="text-base font-bold text-slate-800">{activity.title}</h3>
                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${activity.tagColor}`}>
@@ -204,7 +206,7 @@ const AIGCStudio: React.FC = () => {
         </div>
         <div className="grid grid-cols-2 gap-3.5">
           {featuredWorks.map((work, index) => (
-            <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-lg">
+            <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-lg cursor-pointer" onClick={() => navigate('work-detail', { title: work.title, image: work.image })}>
               <div className="aspect-square bg-slate-100 overflow-hidden">
                 <img
                   src={work.image}
@@ -282,7 +284,7 @@ const AIGCStudio: React.FC = () => {
         <div className="space-y-3.5">
           {tutorials.map((tutorial, index) => {
             return (
-              <div key={index} className="bg-white rounded-3xl p-5 shadow-lg flex items-center gap-4">
+              <div key={index} className="bg-white rounded-3xl p-5 shadow-lg flex items-center gap-4 cursor-pointer" onClick={() => navigate('tutorial-detail', { title: tutorial.title })}>
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${tutorial.color} flex items-center justify-center shadow-lg flex-shrink-0`}>
                   <BookOpen className="w-8 h-8 text-white" />
                 </div>
