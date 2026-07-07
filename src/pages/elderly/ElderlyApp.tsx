@@ -34,6 +34,10 @@ import TutorialDetailPage from './pages/TutorialDetailPage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import OrdersPage from './pages/OrdersPage';
+import NotificationsPage from './pages/NotificationsPage';
+import QuickCallPage from './pages/QuickCallPage';
+import ContactChildrenPage from './pages/ContactChildrenPage';
+import NearbyServicesPage from './pages/NearbyServicesPage';
 
 const AssistantPage: React.FC = () => {
   const { navigate } = useNav();
@@ -170,7 +174,7 @@ const AssistantPage: React.FC = () => {
 };
 
 const AppContent: React.FC = () => {
-  const { currentPage, canGoBack, goBack, navigate } = useNav();
+  const { currentPage, canGoBack, goBack, navigate, resetTo } = useNav();
   const [activeTab, setActiveTab] = useState<PageName>('home');
 
   useEffect(() => {
@@ -188,10 +192,7 @@ const AppContent: React.FC = () => {
   ];
 
   const handleTabClick = (tabId: PageName) => {
-    if (canGoBack) {
-      while (canGoBack) goBack();
-    }
-    navigate(tabId);
+    resetTo(tabId);
     setActiveTab(tabId);
   };
 
@@ -233,6 +234,14 @@ const AppContent: React.FC = () => {
         return <SettingsPage />;
       case 'orders':
         return <OrdersPage />;
+      case 'notifications':
+        return <NotificationsPage />;
+      case 'quick-call':
+        return <QuickCallPage />;
+      case 'contact-children':
+        return <ContactChildrenPage />;
+      case 'nearby-services':
+        return <NearbyServicesPage />;
       default:
         return <HomePage />;
     }
@@ -261,19 +270,19 @@ const AppContent: React.FC = () => {
 
       <div className="flex justify-center pt-12 pb-6 px-4">
         <div className="relative bg-white rounded-[48px] shadow-2xl overflow-hidden ring-1 ring-slate-200 flex-shrink-0" style={{ width: '390px', height: '844px' }}>
-          <div className="absolute top-0 left-0 right-0 h-11 z-30 flex items-center justify-center pointer-events-none">
-            <div className="w-28 h-6 rounded-full bg-slate-900" />
+          <div className="absolute top-0 left-0 right-0 h-14 z-30 flex items-center justify-center pointer-events-none">
+            <div className="w-40 h-8 rounded-full bg-slate-900" />
           </div>
-          <div className="absolute top-0 left-0 right-0 h-11 z-30 flex items-center justify-between px-8 text-[14px] font-semibold text-slate-700 pointer-events-none">
+          <div className="absolute top-0 left-0 right-0 h-14 z-30 flex items-center justify-between px-6 text-[16px] font-semibold text-slate-700 pointer-events-none">
             <span>9:41</span>
-            <div className="flex items-center gap-1.5">
-              <svg width="18" height="12" viewBox="0 0 14 10" fill="currentColor"><path d="M1 7h2v2H1zM4 5h2v4H4zM7 3h2v6H7zM10 1h2v8h-2z"/></svg>
-              <svg width="18" height="12" viewBox="0 0 14 10" fill="none" stroke="currentColor" strokeWidth="1"><path d="M1 5 Q7 -1 13 5"/><path d="M3 7 Q7 3 11 7"/><circle cx="7" cy="9" r="0.8" fill="currentColor"/></svg>
-              <svg width="28" height="12" viewBox="0 0 22 10" fill="none"><rect x="0.5" y="0.5" width="18" height="9" rx="2" stroke="currentColor"/><rect x="2" y="2" width="15" height="6" rx="1" fill="currentColor"/><rect x="19.5" y="3" width="1.5" height="4" rx="0.5" fill="currentColor"/></svg>
+            <div className="flex items-center gap-2">
+              <svg width="20" height="14" viewBox="0 0 14 10" fill="currentColor"><path d="M1 7h2v2H1zM4 5h2v4H4zM7 3h2v6H7zM10 1h2v8h-2z"/></svg>
+              <svg width="20" height="14" viewBox="0 0 14 10" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M1 5 Q7 -1 13 5"/><path d="M3 7 Q7 3 11 7"/><circle cx="7" cy="9" r="0.8" fill="currentColor"/></svg>
+              <svg width="32" height="14" viewBox="0 0 22 10" fill="none"><rect x="0.5" y="0.5" width="18" height="9" rx="2" stroke="currentColor"/><rect x="2" y="2" width="15" height="6" rx="1" fill="currentColor"/><rect x="19.5" y="3" width="1.5" height="4" rx="0.5" fill="currentColor"/></svg>
             </div>
           </div>
 
-          <div className={`absolute top-0 left-0 right-0 overflow-y-auto scrollbar-hide pt-11 ${showTabBar ? 'bottom-[88px]' : 'bottom-0'}`}>
+          <div className={`absolute top-0 left-0 right-0 overflow-y-auto scrollbar-hide pt-14 ${showTabBar ? 'bottom-[88px]' : 'bottom-0'}`}>
             {renderPage()}
           </div>
 

@@ -22,7 +22,13 @@ import {
   ArrowDown,
   Star,
   Camera,
-  Gift
+  Gift,
+  X,
+  CheckCircle,
+  Settings,
+  ShieldCheck,
+  HelpCircle,
+  Info
 } from 'lucide-react';
 
 /**
@@ -34,6 +40,13 @@ import {
  */
 const FamilyMiniApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const [activePage, setActivePage] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2000);
+  };
   
   const tabs = [
     { id: 'home', label: '首页', icon: Home },
@@ -75,7 +88,299 @@ const FamilyMiniApp: React.FC = () => {
     { label: '步数', value: '3,826', status: '良好', trend: 'up', change: '+12%' },
   ];
   
+  const navigate = (page: string, params?: Record<string, any>) => {
+    setActivePage(page);
+    if (params?.title) {
+      setPageTitle(params.title);
+    }
+  };
+
+  const goBack = () => {
+    setActivePage(null);
+    setPageTitle('');
+  };
+
+  const [pageTitle, setPageTitle] = useState('');
+
+  const renderSubPage = () => {
+    switch (activePage) {
+      case 'elder-detail':
+        return (
+          <div className="p-4 pb-20">
+            <div className="flex items-center gap-2 mb-6">
+              <button onClick={goBack} className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                <ArrowLeft className="w-5 h-5 text-slate-600" />
+              </button>
+              <h1 className="text-xl font-bold text-slate-800">家人详情</h1>
+            </div>
+            
+            <div className="bg-gradient-to-br from-teal-500 to-cyan-500 rounded-2xl p-5 text-white mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center text-4xl">
+                  👵
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">王秀兰</h2>
+                  <p className="text-white/80 mt-1">母亲 · 72岁</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Heart className="w-4 h-4 text-red-300" />
+                    <span className="text-lg font-bold">健康分 86</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-4 shadow-sm mb-4">
+              <h3 className="font-bold text-slate-800 mb-4">基础信息</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">身份证号</span>
+                  <span className="text-slate-700">3301**********1234</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">联系电话</span>
+                  <span className="text-slate-700">138****5678</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">家庭住址</span>
+                  <span className="text-slate-700">西湖区翠苑一区</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">紧急联系人</span>
+                  <span className="text-slate-700">李先生（儿子）</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-4 shadow-sm">
+              <h3 className="font-bold text-slate-800 mb-4">健康数据</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-slate-50 rounded-xl p-3">
+                  <p className="text-slate-500 text-xs mb-1">血压</p>
+                  <p className="text-xl font-bold text-slate-800">128/82</p>
+                  <span className="inline-block mt-1 px-2 py-0.5 bg-green-50 text-green-600 rounded text-xs">正常</span>
+                </div>
+                <div className="bg-slate-50 rounded-xl p-3">
+                  <p className="text-slate-500 text-xs mb-1">血糖</p>
+                  <p className="text-xl font-bold text-slate-800">5.6</p>
+                  <span className="inline-block mt-1 px-2 py-0.5 bg-green-50 text-green-600 rounded text-xs">正常</span>
+                </div>
+                <div className="bg-slate-50 rounded-xl p-3">
+                  <p className="text-slate-500 text-xs mb-1">心率</p>
+                  <p className="text-xl font-bold text-slate-800">72</p>
+                  <span className="inline-block mt-1 px-2 py-0.5 bg-green-50 text-green-600 rounded text-xs">正常</span>
+                </div>
+                <div className="bg-slate-50 rounded-xl p-3">
+                  <p className="text-slate-500 text-xs mb-1">步数</p>
+                  <p className="text-xl font-bold text-slate-800">3,826</p>
+                  <span className="inline-block mt-1 px-2 py-0.5 bg-green-50 text-green-600 rounded text-xs">良好</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'order-detail':
+        return (
+          <div className="p-4 pb-20">
+            <div className="flex items-center gap-2 mb-6">
+              <button onClick={goBack} className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                <ArrowLeft className="w-5 h-5 text-slate-600" />
+              </button>
+              <h1 className="text-xl font-bold text-slate-800">订单详情</h1>
+            </div>
+            
+            <div className="bg-white rounded-2xl p-4 shadow-sm mb-4">
+              <div className="flex items-center justify-between mb-4">
+                <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">已完成</span>
+                <span className="text-slate-400 text-sm">今天 11:30</span>
+              </div>
+              <h2 className="text-lg font-bold text-slate-800 mb-2">营养午餐配送</h2>
+              <p className="text-slate-500 text-sm">服务商：绿城餐饮</p>
+            </div>
+
+            <div className="bg-white rounded-2xl p-4 shadow-sm mb-4">
+              <h3 className="font-bold text-slate-800 mb-4">服务信息</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">服务对象</span>
+                  <span className="text-slate-700">王秀兰（母亲）</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">服务地址</span>
+                  <span className="text-slate-700">西湖区翠苑一区12幢</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">服务时间</span>
+                  <span className="text-slate-700">今日 11:00-11:30</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">服务人员</span>
+                  <span className="text-slate-700">张师傅</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-4 shadow-sm">
+              <h3 className="font-bold text-slate-800 mb-4">费用明细</h3>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">服务费用</span>
+                  <span className="text-slate-700">¥18.00</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">优惠券</span>
+                  <span className="text-red-500">-¥5.00</span>
+                </div>
+                <div className="border-t border-slate-100 pt-2 flex justify-between">
+                  <span className="font-bold text-slate-800">实付</span>
+                  <span className="text-xl font-bold text-teal-600">¥13.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'alerts':
+        return (
+          <div className="p-4 pb-20">
+            <div className="flex items-center gap-2 mb-6">
+              <button onClick={goBack} className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                <ArrowLeft className="w-5 h-5 text-slate-600" />
+              </button>
+              <h1 className="text-xl font-bold text-slate-800">全部提醒</h1>
+            </div>
+            
+            <div className="space-y-3">
+              {alerts.map((alert, index) => (
+                <div key={index} className="bg-white rounded-xl p-4 shadow-sm">
+                  <div className="flex gap-3">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      alert.type === 'warning' ? 'bg-yellow-100' : 
+                      alert.type === 'info' ? 'bg-blue-100' : 'bg-green-100'
+                    }`}>
+                      {alert.type === 'warning' && <AlertTriangle className="w-5 h-5 text-yellow-500" />}
+                      {alert.type === 'info' && <Bell className="w-5 h-5 text-blue-500" />}
+                      {alert.type === 'success' && <Heart className="w-5 h-5 text-green-500" />}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-1">
+                        <h4 className="font-medium text-slate-700">{alert.title}</h4>
+                        <span className="text-xs text-slate-400">{alert.time}</span>
+                      </div>
+                      <p className="text-sm text-slate-500">{alert.content}</p>
+                      <span className="inline-block mt-2 px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-xs">
+                        {alert.elder}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'family-manage':
+        return (
+          <div className="p-4 pb-20">
+            <div className="flex items-center gap-2 mb-6">
+              <button onClick={goBack} className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                <ArrowLeft className="w-5 h-5 text-slate-600" />
+              </button>
+              <h1 className="text-xl font-bold text-slate-800">家人管理</h1>
+            </div>
+            
+            <button className="w-full bg-teal-600 text-white py-3 rounded-xl font-bold mb-6">
+              + 添加家人
+            </button>
+
+            <div className="space-y-4">
+              {elders.map((elder, index) => (
+                <div key={index} className="bg-white rounded-2xl p-4 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <div className="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center text-2xl">
+                        {elder.avatar}
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-bold text-slate-800">{elder.name}</h3>
+                        <span className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-xs">
+                          {elder.relation} · {elder.age}岁
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Heart className="w-3.5 h-3.5 text-red-500" />
+                        <span className="text-slate-600 text-sm">健康分 {elder.healthScore}</span>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-slate-400" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'orders':
+        return (
+          <div className="p-4 pb-20">
+            <div className="flex items-center gap-2 mb-6">
+              <button onClick={goBack} className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                <ArrowLeft className="w-5 h-5 text-slate-600" />
+              </button>
+              <h1 className="text-xl font-bold text-slate-800">全部订单</h1>
+            </div>
+            
+            <div className="flex gap-2 mb-4 overflow-x-auto">
+              {['全部', '进行中', '已完成', '已取消'].map((tab, index) => (
+                <button
+                  key={index}
+                  className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
+                    index === 0 ? 'bg-teal-600 text-white' : 'bg-white text-slate-600'
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            <div className="space-y-3">
+              {services.map((service, index) => (
+                <div key={index} className="bg-white rounded-2xl p-4 shadow-sm" onClick={() => navigate('order-detail')}>
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className="font-bold text-slate-800">{service.title}</h3>
+                      <p className="text-sm text-slate-500">{service.provider}</p>
+                    </div>
+                    <span className="text-teal-600 font-bold">¥{service.price}</span>
+                  </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                      service.status.includes('已配送') ? 'bg-green-100 text-green-600' :
+                      service.status.includes('已预约') ? 'bg-blue-100 text-blue-600' :
+                      'bg-slate-100 text-slate-500'
+                    }`}>
+                      {service.status}
+                    </span>
+                    <span className="text-sm text-slate-500">{service.time}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   const renderContent = () => {
+    if (activePage) {
+      return renderSubPage();
+    }
     switch (activeTab) {
       case 'home':
         return (
@@ -90,11 +395,11 @@ const FamilyMiniApp: React.FC = () => {
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-bold text-slate-800">我的家人</h2>
-                <button className="text-teal-600 text-sm">管理</button>
+                <button className="text-teal-600 text-sm" onClick={() => navigate('family-manage')}>管理</button>
               </div>
               <div className="space-y-4">
                 {elders.map((elder, index) => (
-                  <div key={index} className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                  <div key={index} className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100" onClick={() => navigate('elder-detail')}>
                     <div className="flex items-center gap-4">
                       <div className="relative">
                         <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-3xl">
@@ -135,7 +440,7 @@ const FamilyMiniApp: React.FC = () => {
                 {quickActions.map((action, index) => {
                   const IconComponent = action.icon;
                   return (
-                    <button key={index} className="flex flex-col items-center gap-2">
+                    <button key={index} className="flex flex-col items-center gap-2" onClick={() => showToast(`${action.label}功能开发中`)}>
                       <div className={`w-14 h-14 rounded-xl ${action.color} flex items-center justify-center`}>
                         <IconComponent className="w-7 h-7" />
                       </div>
@@ -151,7 +456,7 @@ const FamilyMiniApp: React.FC = () => {
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-bold text-slate-800">预警提醒</h2>
-                <button className="text-teal-600 text-sm">查看全部</button>
+                <button className="text-teal-600 text-sm" onClick={() => navigate('alerts')}>查看全部</button>
               </div>
               <div className="space-y-3">
                 {alerts.map((alert, index) => (
@@ -264,12 +569,12 @@ const FamilyMiniApp: React.FC = () => {
           <div className="p-4 pb-20">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-xl font-bold text-slate-800">服务订单</h1>
-              <button className="text-teal-600 text-sm">订购新服务</button>
+              <button className="text-teal-600 text-sm" onClick={() => showToast('订购新服务功能开发中')}>订购新服务</button>
             </div>
             
             <div className="space-y-4 mb-6">
               {services.map((service, index) => (
-                <div key={index} className="bg-white rounded-2xl p-4 shadow-sm">
+                <div key={index} className="bg-white rounded-2xl p-4 shadow-sm" onClick={() => navigate('order-detail')}>
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h3 className="font-bold text-slate-800">{service.title}</h3>
@@ -298,7 +603,7 @@ const FamilyMiniApp: React.FC = () => {
               ))}
             </div>
             
-            <button className="w-full bg-teal-600 text-white py-3 rounded-xl font-bold">
+            <button className="w-full bg-teal-600 text-white py-3 rounded-xl font-bold" onClick={() => showToast('订购新服务功能开发中')}>
               订购新服务
             </button>
           </div>
@@ -319,15 +624,15 @@ const FamilyMiniApp: React.FC = () => {
                 </div>
               </div>
               <div className="flex gap-4 mt-4">
-                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center">
+                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center" onClick={() => showToast('累计消费详情')}>
                   <p className="text-2xl font-bold">¥2,850</p>
                   <p className="text-xs text-white/80">累计消费</p>
                 </div>
-                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center">
+                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center" onClick={() => showToast('服务次数统计')}>
                   <p className="text-2xl font-bold">126</p>
                   <p className="text-xs text-white/80">服务次数</p>
                 </div>
-                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center">
+                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center" onClick={() => showToast('我的积分')}>
                   <p className="text-2xl font-bold">500</p>
                   <p className="text-xs text-white/80">积分</p>
                 </div>
@@ -337,14 +642,14 @@ const FamilyMiniApp: React.FC = () => {
             {/* 功能列表 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm mb-6">
               {[
-                { icon: Users, label: '家人管理', desc: '绑定/解绑老人' },
-                { icon: FileText, label: '订单记录', desc: '全部服务订单' },
-                { icon: CreditCard, label: '充值缴费', desc: '账户余额管理' },
-                { icon: Bell, label: '提醒设置', desc: '健康预警通知' },
+                { icon: Users, label: '家人管理', desc: '绑定/解绑老人', action: () => navigate('family-manage') },
+                { icon: FileText, label: '订单记录', desc: '全部服务订单', action: () => navigate('orders') },
+                { icon: CreditCard, label: '充值缴费', desc: '账户余额管理', action: () => showToast('充值缴费功能开发中') },
+                { icon: Bell, label: '提醒设置', desc: '健康预警通知', action: () => showToast('提醒设置功能开发中') },
               ].map((item, index) => {
                 const IconComponent = item.icon;
                 return (
-                  <button key={index} className="w-full flex items-center gap-4 p-4 border-b border-slate-50 last:border-0 hover:bg-slate-50 transition-colors">
+                  <button key={index} className="w-full flex items-center gap-4 p-4 border-b border-slate-50 last:border-0 hover:bg-slate-50 transition-colors" onClick={item.action}>
                     <div className="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center">
                       <IconComponent className="w-5 h-5 text-teal-600" />
                     </div>
@@ -361,14 +666,14 @@ const FamilyMiniApp: React.FC = () => {
             {/* 关于 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
               {[
-                '关于我们',
-                '帮助中心',
-                '隐私政策',
-                '版本号 1.0.0',
+                { label: '关于我们', action: () => showToast('关于我们') },
+                { label: '帮助中心', action: () => showToast('帮助中心') },
+                { label: '隐私政策', action: () => showToast('隐私政策') },
+                { label: '版本号 1.0.0', action: () => {} },
               ].map((item, index) => (
-                <button key={index} className="w-full flex items-center justify-between p-4 border-b border-slate-50 last:border-0 hover:bg-slate-50">
-                  <span className="text-slate-600">{item}</span>
-                  <ChevronRight className="w-5 h-5 text-slate-400" />
+                <button key={index} className="w-full flex items-center justify-between p-4 border-b border-slate-50 last:border-0 hover:bg-slate-50" onClick={item.action}>
+                  <span className="text-slate-600">{item.label}</span>
+                  {index < 3 && <ChevronRight className="w-5 h-5 text-slate-400" />}
                 </button>
               ))}
             </div>
@@ -430,6 +735,15 @@ const FamilyMiniApp: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Toast 提示 */}
+      {toast && (
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="bg-slate-800/90 text-white px-6 py-3 rounded-xl text-sm font-medium shadow-xl backdrop-blur-sm">
+            {toast}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

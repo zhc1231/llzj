@@ -125,7 +125,7 @@ const ServiceDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-4 mt-4 mb-24">
+      <div className="px-4 mt-4 pb-6">
         <div className="bg-white rounded-3xl p-5 shadow-sm">
           <h2 className="text-lg font-bold text-slate-800 mb-4">服务保障</h2>
           <div className="grid grid-cols-2 gap-3">
@@ -149,12 +149,13 @@ const ServiceDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white px-4 py-4 border-t border-slate-100 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] z-30">
+      {/* 底部操作栏 */}
+      <div className="px-4 py-5 bg-white border-t border-slate-100 mt-4">
         <div className="flex items-center gap-3">
-          <button className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center">
+          <button className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center shadow-sm">
             <MessageCircle className="w-6 h-6 text-slate-600" />
           </button>
-          <button className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center">
+          <button className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center shadow-sm">
             <Phone className="w-6 h-6 text-slate-600" />
           </button>
           <button className="flex-1 h-14 bg-gradient-to-r from-rose-500 to-orange-500 text-white text-lg font-bold rounded-2xl shadow-lg">

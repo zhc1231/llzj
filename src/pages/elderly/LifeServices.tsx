@@ -195,7 +195,11 @@ const LifeServices: React.FC = () => {
               const IconComponent = item.icon;
               const handleMenuClick = () => {
                 if (group.title === '家庭与关怀') {
-                  navigate('profile');
+                  if (item.label === '消息通知') {
+                    navigate('notifications');
+                  } else {
+                    navigate('profile');
+                  }
                 } else {
                   switch (item.label) {
                     case '我的订单':

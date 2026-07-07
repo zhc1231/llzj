@@ -214,7 +214,8 @@ const TutorialDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-4 border-t border-slate-100 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] z-30">
+      {/* 底部操作栏 */}
+      <div className="px-5 py-4 bg-white border-t border-slate-100 mt-4">
         <button
           className="w-full h-16 bg-gradient-to-r from-sky-500 to-blue-500 text-white text-xl font-bold rounded-2xl shadow-lg flex items-center justify-center gap-2"
         >

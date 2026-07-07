@@ -22,7 +22,11 @@ export type PageName =
   | 'orders'
   | 'favorites'
   | 'wallet'
-  | 'coupons';
+  | 'coupons'
+  | 'notifications'
+  | 'quick-call'
+  | 'contact-children'
+  | 'nearby-services';
 
 interface NavContextType {
   currentPage: PageName;
@@ -30,6 +34,7 @@ interface NavContextType {
   navigate: (page: PageName, params?: Record<string, any>) => void;
   goBack: () => void;
   canGoBack: boolean;
+  resetTo: (page: PageName, params?: Record<string, any>) => void;
 }
 
 const NavContext = createContext<NavContextType | null>(null);
@@ -52,6 +57,10 @@ export const NavProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     });
   }, []);
 
+  const resetTo = useCallback((page: PageName, params: Record<string, any> = {}) => {
+    setStack([{ page, params }]);
+  }, []);
+
   return (
     <NavContext.Provider
       value={{
@@ -60,6 +69,7 @@ export const NavProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         navigate,
         goBack,
         canGoBack: stack.length > 1,
+        resetTo,
       }}
     >
       {children}

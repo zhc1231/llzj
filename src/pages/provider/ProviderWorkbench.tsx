@@ -32,6 +32,13 @@ import {
  */
 const ProviderWorkbench: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const [toast, setToast] = useState<string | null>(null);
+  const [activeOrderTab, setActiveOrderTab] = useState(1);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2000);
+  };
   
   const tabs = [
     { id: 'home', label: '工作台', icon: Home },
@@ -115,20 +122,20 @@ const ProviderWorkbench: React.FC = () => {
                     <span>已服务 328 单</span>
                   </div>
                 </div>
-                <button className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                <button className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center" onClick={() => showToast('消息通知')}>
                   <Bell className="w-5 h-5" />
                 </button>
               </div>
               <div className="flex gap-4 mt-4">
-                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center">
+                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center" onClick={() => showToast('本月收入详情')}>
                   <p className="text-2xl font-bold">¥6,850</p>
                   <p className="text-xs text-white/80">本月收入</p>
                 </div>
-                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center">
+                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center" onClick={() => showToast('工作时长统计')}>
                   <p className="text-2xl font-bold">168h</p>
                   <p className="text-xs text-white/80">工作时长</p>
                 </div>
-                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center">
+                <div className="flex-1 bg-white/20 rounded-xl p-3 text-center" onClick={() => showToast('服务单量统计')}>
                   <p className="text-2xl font-bold">86单</p>
                   <p className="text-xs text-white/80">服务单量</p>
                 </div>
@@ -155,7 +162,7 @@ const ProviderWorkbench: React.FC = () => {
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-bold text-slate-800">待接订单</h2>
-                <button className="text-blue-600 text-sm font-medium">全部订单</button>
+                <button className="text-blue-600 text-sm font-medium" onClick={() => setActiveTab('orders')}>全部订单</button>
               </div>
               <div className="space-y-3">
                 {pendingOrders.slice(0, 2).map((order) => (
@@ -188,10 +195,10 @@ const ProviderWorkbench: React.FC = () => {
                       <span className="text-slate-500 text-sm">{order.time}</span>
                     </div>
                     <div className="flex gap-2 mt-3">
-                      <button className="flex-1 py-2 border border-slate-200 rounded-lg text-slate-600 text-sm font-medium">
+                      <button className="flex-1 py-2 border border-slate-200 rounded-lg text-slate-600 text-sm font-medium" onClick={() => showToast('已拒绝订单')}>
                         拒绝
                       </button>
-                      <button className="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium">
+                      <button className="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium" onClick={() => showToast('抢单成功！')}>
                         抢单
                       </button>
                     </div>
@@ -235,8 +242,9 @@ const ProviderWorkbench: React.FC = () => {
               {['全部', '待接单', '进行中', '已完成', '已取消'].map((tab, index) => (
                 <button
                   key={index}
+                  onClick={() => setActiveOrderTab(index)}
                   className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
-                    index === 1 ? 'bg-blue-600 text-white' : 'bg-white text-slate-600'
+                    activeOrderTab === index ? 'bg-blue-600 text-white' : 'bg-white text-slate-600'
                   }`}
                 >
                   {tab}
@@ -322,15 +330,15 @@ const ProviderWorkbench: React.FC = () => {
             </div>
             
             <div className="grid grid-cols-3 gap-4 mb-6">
-              <button className="bg-white rounded-xl p-4 text-center shadow-sm">
+              <button className="bg-white rounded-xl p-4 text-center shadow-sm" onClick={() => showToast('我的钱包')}>
                 <Wallet className="w-6 h-6 text-blue-600 mx-auto mb-2" />
                 <p className="font-bold text-slate-700">钱包</p>
               </button>
-              <button className="bg-white rounded-xl p-4 text-center shadow-sm">
+              <button className="bg-white rounded-xl p-4 text-center shadow-sm" onClick={() => showToast('数据统计')}>
                 <TrendingUp className="w-6 h-6 text-green-600 mx-auto mb-2" />
                 <p className="font-bold text-slate-700">数据</p>
               </button>
-              <button className="bg-white rounded-xl p-4 text-center shadow-sm">
+              <button className="bg-white rounded-xl p-4 text-center shadow-sm" onClick={() => showToast('我的等级')}>
                 <Award className="w-6 h-6 text-yellow-600 mx-auto mb-2" />
                 <p className="font-bold text-slate-700">等级</p>
               </button>
@@ -338,13 +346,13 @@ const ProviderWorkbench: React.FC = () => {
             
             <div className="bg-white rounded-xl overflow-hidden shadow-sm">
               {[
-                '服务资质认证',
-                '培训学习',
-                '评价管理',
-                '设置',
+                { label: '服务资质认证', action: () => showToast('服务资质认证') },
+                { label: '培训学习', action: () => showToast('培训学习') },
+                { label: '评价管理', action: () => showToast('评价管理') },
+                { label: '设置', action: () => showToast('设置') },
               ].map((item, index) => (
-                <button key={index} className="w-full flex items-center justify-between p-4 border-b border-slate-50 last:border-0 hover:bg-slate-50">
-                  <span className="text-slate-700">{item}</span>
+                <button key={index} className="w-full flex items-center justify-between p-4 border-b border-slate-50 last:border-0 hover:bg-slate-50" onClick={item.action}>
+                  <span className="text-slate-700">{item.label}</span>
                   <ChevronRight className="w-5 h-5 text-slate-400" />
                 </button>
               ))}
@@ -407,6 +415,15 @@ const ProviderWorkbench: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Toast 提示 */}
+      {toast && (
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="bg-slate-800/90 text-white px-6 py-3 rounded-xl text-sm font-medium shadow-xl backdrop-blur-sm">
+            {toast}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

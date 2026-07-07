@@ -16,12 +16,15 @@ const PageHeader: React.FC<PageHeaderProps> = ({
 }) => {
   return (
     <div className={`
-      sticky top-0 z-20 flex items-center justify-between px-4 h-14
+      absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-4 h-14
       ${transparent ? 'bg-transparent' : 'bg-white/90 backdrop-blur-md border-b border-slate-100'}
     `}>
       <button
-        onClick={onBack}
-        className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-active
+        onClick={(e) => {
+          e.stopPropagation();
+          onBack?.();
+        }}
+        className={`w-11 h-11 rounded-2xl flex items-center justify-center z-50 relative
           ${transparent ? 'bg-white/25 text-white backdrop-blur-md' : 'bg-slate-50 text-slate-700'}
         `}
       >
@@ -34,7 +37,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         {rightActions.map((action) => (
           <button
             key={action}
-            className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-active
+            className={`w-11 h-11 rounded-2xl flex items-center justify-center z-50 relative
               ${transparent ? 'bg-white/25 text-white backdrop-blur-md' : 'bg-slate-50 text-slate-700'}
             `}
           >

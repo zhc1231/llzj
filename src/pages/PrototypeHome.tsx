@@ -262,11 +262,11 @@ const PrototypeHome: React.FC = () => {
             ].map((layer, idx) => (
               <div
                 key={idx}
-                className={`h-24 rounded-xl ${layer.color} shadow-sm flex flex-col items-center justify-center text-center text-white p-3`}
+                className={`h-28 rounded-xl ${layer.color} shadow-sm flex flex-col items-center justify-center text-center text-white p-3`}
                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}
               >
-                <p className="text-xs font-bold mb-0.5">{layer.name}</p>
-                <p className="text-[10px] opacity-90">{layer.desc}</p>
+                <p className="text-base font-bold mb-1">{layer.name}</p>
+                <p className="text-xs opacity-90">{layer.desc}</p>
               </div>
             ))}
           </div>

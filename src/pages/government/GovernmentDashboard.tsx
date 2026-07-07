@@ -42,6 +42,12 @@ import {
  */
 const GovernmentDashboard: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2000);
+  };
   
   const menuItems = [
     { id: 'dashboard', label: '数据驾驶舱', icon: LayoutDashboard },
@@ -95,11 +101,11 @@ const GovernmentDashboard: React.FC = () => {
                 <p className="text-slate-500 mt-1">实时监控全市养老服务运行状况</p>
               </div>
               <div className="flex items-center gap-3">
-                <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50">
+                <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50" onClick={() => showToast('数据已刷新')}>
                   <RefreshCw className="w-4 h-4" />
                   <span className="text-sm">刷新数据</span>
                 </button>
-                <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onClick={() => showToast('报表导出中...')}>
                   <Download className="w-4 h-4" />
                   <span className="text-sm">导出报表</span>
                 </button>
@@ -267,7 +273,7 @@ const GovernmentDashboard: React.FC = () => {
                 <h1 className="text-2xl font-bold text-slate-800">掼蛋赛事管理</h1>
                 <p className="text-slate-500 mt-1">管理全市掼蛋比赛活动</p>
               </div>
-              <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700">
+              <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700" onClick={() => showToast('新建赛事功能开发中')}>
                 + 新建赛事
               </button>
             </div>
@@ -360,7 +366,7 @@ const GovernmentDashboard: React.FC = () => {
                 <h1 className="text-2xl font-bold text-slate-800">老人档案管理</h1>
                 <p className="text-slate-500 mt-1">管理全市老年人基本信息和健康档案</p>
               </div>
-              <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-medium">
+              <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-medium" onClick={() => showToast('新增档案功能开发中')}>
                 + 新增档案
               </button>
             </div>
@@ -430,7 +436,7 @@ const GovernmentDashboard: React.FC = () => {
         return (
           <div className="p-6">
             <h1 className="text-2xl font-bold text-slate-800 mb-6">政策发布</h1>
-            <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-medium mb-6">
+            <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-medium mb-6" onClick={() => showToast('发布新政策功能开发中')}>
               + 发布新政策
             </button>
             <div className="space-y-4">
@@ -571,6 +577,15 @@ const GovernmentDashboard: React.FC = () => {
       <div className="flex-1 overflow-auto">
         {renderContent()}
       </div>
+
+      {/* Toast 提示 */}
+      {toast && (
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="bg-slate-800/90 text-white px-6 py-3 rounded-xl text-sm font-medium shadow-xl backdrop-blur-sm">
+            {toast}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -147,7 +147,8 @@ const AIGCCreatePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-5 border-t border-slate-100 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] z-30">
+      {/* 底部操作栏 */}
+      <div className="px-5 py-5 bg-white border-t border-slate-100 mt-4">
         <button
           onClick={handleCreate}
           disabled={!prompt.trim()}

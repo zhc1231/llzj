@@ -179,7 +179,8 @@ const HealthDataDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-5 border-t border-orange-100 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-30">
+      {/* 底部操作栏 */}
+      <div className="px-5 py-5 bg-white border-t border-orange-100 mt-4">
         <div className="flex items-center gap-4">
           <button className="flex-1 h-16 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xl font-extrabold rounded-3xl shadow-lg flex items-center justify-center gap-3">
             <MessageCircle className="w-7 h-7" />

@@ -223,7 +223,7 @@ const ProfilePage: React.FC = () => {
       </div>
 
       {isEditing && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-4 border-t border-slate-100 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] z-30">
+        <div className="px-5 py-4 bg-white border-t border-slate-100 mt-4">
           <div className="flex gap-3">
             <button
               onClick={() => setIsEditing(false)}
