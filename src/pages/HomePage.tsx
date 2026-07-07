@@ -216,16 +216,6 @@ const HomePage: React.FC = () => {
           <div className="invisible">
             <div className="w-full h-44" />
           </div>
-          <div className="absolute bottom-5 right-5 flex gap-2.5 z-10">
-            {banners.map((_, idx) => (
-              <span
-                key={idx}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  idx === bannerIndex ? 'w-7 bg-white' : 'bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
         </div>
       </div>
 
