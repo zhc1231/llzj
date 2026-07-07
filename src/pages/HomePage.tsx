@@ -210,9 +210,6 @@ const HomePage: React.FC = () => {
                 </span>
                 <h2 className="text-2xl font-bold text-white drop-shadow-lg mb-1.5">{banner.title}</h2>
                 <p className="text-white/90 text-sm mb-5">{banner.subtitle}</p>
-                <button className="w-fit px-5 py-2.5 bg-white text-primary rounded-xl text-sm font-bold shadow-xl hover:bg-primary hover:text-white transition-colors">
-                  {banner.buttonText}
-                </button>
               </div>
             </div>
           ))}

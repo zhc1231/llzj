@@ -193,19 +193,31 @@ const HealthDashboard: React.FC = () => {
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center">
               <Activity className="w-4 h-4 text-white" />
             </div>
-            <h2 className="text-lg font-bold text-slate-800">健康数据</h2>
+            <h2 className="text-lg font-bold text-slate-800">健康监测</h2>
           </div>
-          <button className="text-slate-400 text-sm">查看全部</button>
+          <button className="text-slate-400 text-sm" onClick={() => navigate('health-data-detail', { type: '血压', value: '128/82', unit: 'mmHg' })}>查看全部</button>
         </div>
-        <div className="grid grid-cols-3 gap-3.5">
+        <div className="grid grid-cols-2 gap-3.5">
           {healthData.map((item, index) => {
             const IconComponent = item.icon;
             return (
               <div key={index} className={`bg-white rounded-3xl p-4 shadow-lg border ${item.borderColor} cursor-pointer`} onClick={() => navigate('health-data-detail', { type: item.label, value: item.value, unit: item.unit })}>
-                <div className="flex items-center justify-between mb-2.5">
-                  <div className={`w-10 h-10 rounded-xl ${item.bgColor} flex items-center justify-center`}>
-                    <IconComponent className={`w-5 h-5 ${item.color}`} />
+                <div className="flex items-center gap-3 mb-3">
+                  <div className={`w-12 h-12 rounded-2xl ${item.bgColor} flex items-center justify-center flex-shrink-0">
+                    <IconComponent className={`w-6 h-6 ${item.color}`} />
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-slate-500 text-sm font-medium">{item.label}</p>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-2xl font-bold text-slate-800">{item.value}</span>
+                      <span className="text-xs text-slate-400">{item.unit}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`inline-block px-2.5 py-1 ${item.bgColor} ${item.color} rounded-full text-xs font-bold`}>
+                    {item.status}
+                  </span>
                   <div className={`flex items-center gap-0.5 text-xs font-bold ${
                     item.trend === 'up' ? 'text-emerald-500' :
                     item.trend === 'down' ? 'text-rose-500' : 'text-slate-400'
@@ -215,14 +227,6 @@ const HealthDashboard: React.FC = () => {
                     {item.change}
                   </div>
                 </div>
-                <p className="text-slate-400 text-sm mb-1">{item.label}</p>
-                <div className="flex items-baseline gap-0.5">
-                  <span className="text-xl font-bold text-slate-800">{item.value}</span>
-                  <span className="text-xs text-slate-400">{item.unit}</span>
-                </div>
-                <span className={`inline-block mt-2 px-2 py-0.5 ${item.bgColor} ${item.color} rounded-full text-xs font-bold`}>
-                  {item.status}
-                </span>
               </div>
             );
           })}

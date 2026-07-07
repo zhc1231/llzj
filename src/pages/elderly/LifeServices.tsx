@@ -75,16 +75,12 @@ const LifeServices: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50/50 via-white to-slate-50 pb-6">
       {/* ====== 顶部背景 + 个人资料 ====== */}
-      <div className="relative h-64 overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1556909114-44e3e9399a2e?w=800&q=85"
-          alt="bg"
-          className="w-full h-full object-cover"
-        />
+      <div className="relative h-64 overflow-hidden bg-gradient-to-br from-amber-400 via-orange-400 to-rose-400">
         <div className="absolute inset-0 bg-gradient-to-b from-amber-500/80 via-orange-500/75 to-slate-50" />
         <div className="absolute inset-0 px-5 pt-4 flex flex-col">
           {/* 顶部工具栏 */}
-          <div className="flex justify-end mb-3">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-white/80 text-sm">乐龄智家</span>
             <button className="w-11 h-11 rounded-2xl bg-white/25 backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer" onClick={() => navigate('settings')}>
               <Settings className="w-5 h-5 text-white" />
             </button>
@@ -102,7 +98,7 @@ const LifeServices: React.FC = () => {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-bold text-white truncate">张阿姨</h1>
-                <span className="px-2 py-0.5 bg-white/30 backdrop-blur-md text-white text-xs rounded-xl font-bold">V3</span>
+                <span className="px-3 py-1 bg-gradient-to-r from-yellow-300 to-amber-400 text-amber-900 text-xs rounded-full font-bold shadow-md border border-yellow-200">V3 会员</span>
               </div>
               <p className="text-white/85 text-base mt-1">156****1234</p>
               <div className="flex items-center gap-2 mt-2">
@@ -110,7 +106,7 @@ const LifeServices: React.FC = () => {
                 <span className="px-2.5 py-1 bg-emerald-400/90 text-white text-xs rounded-full font-bold">健康分 86</span>
               </div>
             </div>
-            <button className="px-4 py-2 bg-white/25 backdrop-blur-md text-white text-sm rounded-2xl border border-white/30 flex-shrink-0 font-bold" onClick={(e) => e.stopPropagation()}>
+            <button className="px-4 py-2 bg-white text-orange-500 text-sm rounded-2xl shadow-md flex-shrink-0 font-bold hover:bg-orange-50 transition-colors z-10" onClick={(e) => { e.stopPropagation(); navigate('profile'); }}>
               编辑
             </button>
           </div>
