@@ -201,10 +201,10 @@ const HealthDashboard: React.FC = () => {
           {healthData.map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div key={index} className={`bg-white rounded-3xl p-4 shadow-lg border ${item.borderColor} cursor-pointer`} onClick={() => navigate('health-data-detail', { type: item.label, value: item.value, unit: item.unit })}>
+              <div key={index} className={'bg-white rounded-3xl p-4 shadow-lg border ' + item.borderColor + ' cursor-pointer'} onClick={() => navigate('health-data-detail', { type: item.label, value: item.value, unit: item.unit })}>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className={`w-12 h-12 rounded-2xl ${item.bgColor} flex items-center justify-center flex-shrink-0">
-                    <IconComponent className={`w-6 h-6 ${item.color}`} />
+                  <div className={'w-12 h-12 rounded-2xl ' + item.bgColor + ' flex items-center justify-center flex-shrink-0'}>
+                    <IconComponent className={'w-6 h-6 ' + item.color} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-slate-500 text-sm font-medium">{item.label}</p>
@@ -215,13 +215,13 @@ const HealthDashboard: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={`inline-block px-2.5 py-1 ${item.bgColor} ${item.color} rounded-full text-xs font-bold`}>
+                  <span className={'inline-block px-2.5 py-1 ' + item.bgColor + ' ' + item.color + ' rounded-full text-xs font-bold'}>
                     {item.status}
                   </span>
-                  <div className={`flex items-center gap-0.5 text-xs font-bold ${
+                  <div className={'flex items-center gap-0.5 text-xs font-bold ' + (
                     item.trend === 'up' ? 'text-emerald-500' :
                     item.trend === 'down' ? 'text-rose-500' : 'text-slate-400'
-                  }`}>
+                  )}>
                     {item.trend === 'up' && <ArrowUp className="w-3 h-3" />}
                     {item.trend === 'down' && <ArrowDown className="w-3 h-3" />}
                     {item.change}
