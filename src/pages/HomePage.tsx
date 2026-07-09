@@ -219,6 +219,23 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
+      {/* ====== 援通智慧入口 ====== */}
+      <div className="px-5 mt-4">
+        <button
+          className="w-full bg-gradient-to-r from-red-600 to-rose-600 rounded-[24px] p-5 shadow-xl flex items-center gap-4 text-left active:scale-95 transition-transform"
+          onClick={() => navigate('yuantong')}
+        >
+          <div className="w-14 h-14 rounded-[20px] bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+            <Star className="w-7 h-7 text-white" fill="white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-white">援通智慧</h3>
+            <p className="text-sm text-white/80 mt-0.5">智慧养老 · 产业赋能 · 20年成果</p>
+          </div>
+          <ChevronRight className="w-6 h-6 text-white/60 flex-shrink-0" />
+        </button>
+      </div>
+
       {/* ====== 快捷功能 ====== */}
       <div className="px-5 mt-4">
         <div className="bg-white rounded-[24px] p-5 shadow-xl">

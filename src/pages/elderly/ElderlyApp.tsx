@@ -38,6 +38,7 @@ import NotificationsPage from './pages/NotificationsPage';
 import QuickCallPage from './pages/QuickCallPage';
 import ContactChildrenPage from './pages/ContactChildrenPage';
 import NearbyServicesPage from './pages/NearbyServicesPage';
+import YuantongPage from './pages/YuantongPage';
 
 const AssistantPage: React.FC = () => {
   const { navigate } = useNav();
@@ -242,6 +243,8 @@ const AppContent: React.FC = () => {
         return <ContactChildrenPage />;
       case 'nearby-services':
         return <NearbyServicesPage />;
+      case 'yuantong':
+        return <YuantongPage />;
       default:
         return <HomePage />;
     }
