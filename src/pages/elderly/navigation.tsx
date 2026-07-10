@@ -28,7 +28,15 @@ export type PageName =
   | 'contact-children'
   | 'nearby-services'
   | 'yuantong'
-  | 'health-reminders';
+  | 'health-reminders'
+  | 'follows'
+  | 'competitions'
+  | 'family-manage'
+  | 'address-manage'
+  | 'emergency-contact'
+  | 'privacy'
+  | 'help'
+  | 'about';
 
 interface NavContextType {
   currentPage: PageName;

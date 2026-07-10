@@ -40,6 +40,17 @@ import ContactChildrenPage from './pages/ContactChildrenPage';
 import NearbyServicesPage from './pages/NearbyServicesPage';
 import YuantongPage from './pages/YuantongPage';
 import HealthRemindersPage from './pages/HealthRemindersPage';
+import WalletPage from './pages/WalletPage';
+import CouponsPage from './pages/CouponsPage';
+import FavoritesPage from './pages/FavoritesPage';
+import FollowsPage from './pages/FollowsPage';
+import CompetitionsPage from './pages/CompetitionsPage';
+import FamilyManagePage from './pages/FamilyManagePage';
+import AddressManagePage from './pages/AddressManagePage';
+import EmergencyContactPage from './pages/EmergencyContactPage';
+import PrivacyPage from './pages/PrivacyPage';
+import HelpPage from './pages/HelpPage';
+import AboutPage from './pages/AboutPage';
 
 const AssistantPage: React.FC = () => {
   const { navigate } = useNav();
@@ -248,6 +259,28 @@ const AppContent: React.FC = () => {
         return <YuantongPage />;
       case 'health-reminders':
         return <HealthRemindersPage />;
+      case 'wallet':
+        return <WalletPage />;
+      case 'coupons':
+        return <CouponsPage />;
+      case 'favorites':
+        return <FavoritesPage />;
+      case 'follows':
+        return <FollowsPage />;
+      case 'competitions':
+        return <CompetitionsPage />;
+      case 'family-manage':
+        return <FamilyManagePage />;
+      case 'address-manage':
+        return <AddressManagePage />;
+      case 'emergency-contact':
+        return <EmergencyContactPage />;
+      case 'privacy':
+        return <PrivacyPage />;
+      case 'help':
+        return <HelpPage />;
+      case 'about':
+        return <AboutPage />;
       default:
         return <HomePage />;
     }

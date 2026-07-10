@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PageHeader from '../PageHeader';
 import { useNav } from '../navigation';
 import {
   ClipboardList,
@@ -11,7 +10,7 @@ import {
   Calendar,
   MapPin,
   User,
-  RefreshCw
+  RefreshCw,
 } from 'lucide-react';
 
 const OrdersPage: React.FC = () => {
@@ -114,27 +113,43 @@ const OrdersPage: React.FC = () => {
 
   return (
     <div className="min-h-full bg-slate-50 pb-6">
-      <PageHeader title="我的订单" onBack={goBack} rightActions={[]} />
-
-      <div className="sticky top-14 z-10 bg-slate-50 px-5 py-3">
-        <div className="bg-white rounded-2xl p-1.5 shadow-md flex">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 py-3 rounded-xl text-base font-bold transition-all ${
-                activeTab === tab.id
-                  ? 'bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-md'
-                  : 'text-slate-500'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      <div className="sticky top-0 z-20 bg-white border-b border-slate-100">
+        <div className="flex items-center justify-center px-4 h-14">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goBack();
+            }}
+            className="w-11 h-11 rounded-2xl flex items-center justify-center bg-slate-50 text-slate-700"
+            style={{ position: 'absolute', left: '16px' }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <h1 className="text-lg font-bold text-slate-800">我的订单</h1>
+          <div className="w-11" style={{ position: 'absolute', right: '16px' }} />
+        </div>
+        <div className="px-5 py-2.5 bg-slate-50/50 border-t border-slate-100">
+          <div className="bg-white rounded-2xl p-1.5 shadow-md flex">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 py-2.5 rounded-xl text-base font-bold transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-md'
+                    : 'text-slate-500'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="px-5 mt-2 space-y-4">
+      <div className="px-5 mt-4 space-y-4 pt-[120px]">
         {filteredOrders.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="w-24 h-24 rounded-3xl bg-slate-100 flex items-center justify-center mb-4">

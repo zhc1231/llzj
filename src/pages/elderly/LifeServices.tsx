@@ -135,9 +135,13 @@ const LifeServices: React.FC = () => {
                     navigate('orders');
                     break;
                   case '钱包':
+                    navigate('wallet');
+                    break;
                   case '优惠券':
+                    navigate('coupons');
+                    break;
                   case '积分':
-                    navigate('service-detail');
+                    navigate('favorites');
                     break;
                 }
               };
@@ -193,8 +197,12 @@ const LifeServices: React.FC = () => {
                 if (group.title === '家庭与关怀') {
                   if (item.label === '消息通知') {
                     navigate('notifications');
-                  } else {
-                    navigate('profile');
+                  } else if (item.label === '家庭成员') {
+                    navigate('family-manage');
+                  } else if (item.label === '地址管理') {
+                    navigate('address-manage');
+                  } else if (item.label === '紧急联系人') {
+                    navigate('emergency-contact');
                   }
                 } else {
                   switch (item.label) {
@@ -202,13 +210,19 @@ const LifeServices: React.FC = () => {
                       navigate('orders');
                       break;
                     case '我的赛事':
-                      navigate('guandan-detail');
+                      navigate('competitions');
                       break;
                     case '我的钱包':
+                      navigate('wallet');
+                      break;
                     case '优惠券':
+                      navigate('coupons');
+                      break;
                     case '我的收藏':
+                      navigate('favorites');
+                      break;
                     case '我的关注':
-                      navigate('service-detail');
+                      navigate('follows');
                       break;
                   }
                 }
@@ -240,11 +254,21 @@ const LifeServices: React.FC = () => {
         <div className="bg-white rounded-3xl p-2.5 shadow-lg">
           {settingItems.map((item, index) => {
             const IconComponent = item.icon;
+            const handleSettingClick = () => {
+              switch (item.label) {
+                case '消息提醒':
+                case '字体大小':
+                case '深色模式':
+                case '账号安全':
+                  navigate('settings');
+                  break;
+              }
+            };
             return (
               <button
                 key={index}
                 className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left cursor-pointer"
-                onClick={() => navigate('settings')}
+                onClick={handleSettingClick}
               >
                 <div className={`w-10 h-10 rounded-xl ${item.iconBg} flex items-center justify-center flex-shrink-0`}>
                   <IconComponent className={`w-5 h-5 ${item.color}`} />
@@ -264,11 +288,24 @@ const LifeServices: React.FC = () => {
         <div className="bg-white rounded-3xl p-2.5 shadow-lg">
           {otherItems.map((item, index) => {
             const IconComponent = item.icon;
+            const handleOtherClick = () => {
+              switch (item.label) {
+                case '隐私协议':
+                  navigate('privacy');
+                  break;
+                case '帮助与反馈':
+                  navigate('help');
+                  break;
+                case '关于我们':
+                  navigate('about');
+                  break;
+              }
+            };
             return (
               <button
                 key={index}
                 className="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-left cursor-pointer"
-                onClick={() => navigate('settings')}
+                onClick={handleOtherClick}
               >
                 <IconComponent className={`w-5 h-5 ${item.color}`} />
                 <span className="flex-1 text-base font-medium text-slate-700">{item.label}</span>
@@ -281,7 +318,14 @@ const LifeServices: React.FC = () => {
 
       {/* ====== 退出登录 ====== */}
       <div className="px-5 mt-5">
-        <button className="w-full bg-white rounded-3xl p-4 shadow-lg flex items-center justify-center gap-2 text-rose-500 font-bold hover:bg-rose-50 transition-colors">
+        <button
+          onClick={() => {
+            if (window.confirm('确定要退出登录吗？')) {
+              alert('已退出登录');
+            }
+          }}
+          className="w-full bg-white rounded-3xl p-4 shadow-lg flex items-center justify-center gap-2 text-rose-500 font-bold hover:bg-rose-50 transition-colors"
+        >
           <LogOut className="w-5 h-5" />
           <span className="text-base">退出登录</span>
         </button>
