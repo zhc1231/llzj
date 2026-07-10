@@ -27,7 +27,8 @@ export type PageName =
   | 'quick-call'
   | 'contact-children'
   | 'nearby-services'
-  | 'yuantong';
+  | 'yuantong'
+  | 'health-reminders';
 
 interface NavContextType {
   currentPage: PageName;

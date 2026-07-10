@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNav } from '../navigation';
+import { useNav, PageName } from '../navigation';
+import PageHeader from '../PageHeader';
 import {
   Bell,
   Megaphone,
@@ -10,8 +11,7 @@ import {
   CheckCircle,
   Clock,
   Star,
-  MessageCircle,
-  ArrowLeft
+  MessageCircle
 } from 'lucide-react';
 
 const NotificationsPage: React.FC = () => {
@@ -22,7 +22,7 @@ const NotificationsPage: React.FC = () => {
     { id: 'all', label: '全部' },
     { id: 'system', label: '系统通知' },
     { id: 'activity', label: '活动通知' },
-    { id: 'health', label: '健康提醒' },
+    { id: 'health', label: '健康提醒', action: 'health-reminders' as PageName },
   ];
 
   const notifications = [
@@ -113,9 +113,9 @@ const NotificationsPage: React.FC = () => {
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <div className="min-h-full bg-slate-50 pb-6 -mt-14">
-      <div className="sticky top-0 z-20 bg-white/95 backdrop-blur-md pt-14">
-        <div className="flex items-center justify-center px-4 h-14 border-b border-slate-100">
+    <div className="min-h-full bg-slate-50 pb-6">
+      <div className="sticky top-0 z-20 bg-white border-b border-slate-100">
+        <div className="flex items-center justify-center px-4 h-14">
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -124,17 +124,25 @@ const NotificationsPage: React.FC = () => {
             className="w-11 h-11 rounded-2xl flex items-center justify-center bg-slate-50 text-slate-700"
             style={{ position: 'absolute', left: '16px' }}
           >
-            <ArrowLeft className="w-6 h-6" />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
           </button>
           <h1 className="text-lg font-bold text-slate-800">消息通知</h1>
           <div className="w-11" style={{ position: 'absolute', right: '16px' }} />
         </div>
-        <div className="px-5 py-2.5 bg-slate-50/50">
+        <div className="px-5 py-2.5 bg-slate-50/50 border-t border-slate-100">
           <div className="bg-white rounded-2xl p-1.5 shadow-md flex">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  if (tab.action) {
+                    navigate(tab.action);
+                  } else {
+                    setActiveTab(tab.id);
+                  }
+                }}
                 className={`flex-1 py-2.5 rounded-xl text-base font-bold transition-all ${
                   activeTab === tab.id
                     ? 'bg-gradient-to-r from-primary to-orange-400 text-white shadow-md'
@@ -148,7 +156,7 @@ const NotificationsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-5 space-y-3 pt-2">
+      <div className="px-5 space-y-3 pt-[66px]">
         {filteredNotifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="w-24 h-24 rounded-3xl bg-slate-100 flex items-center justify-center mb-4">

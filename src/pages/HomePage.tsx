@@ -48,7 +48,17 @@ const HomePage: React.FC = () => {
 
   const banners = [
     {
-      image: 'https://images.unsplash.com/photo-1504700610630-ac6aba3536d3?w=800&q=85',
+      image: '',
+      title: '援通智慧',
+      subtitle: '智慧养老 · 产业赋能 · 20年成果',
+      tag: '企业介绍',
+      gradient: 'from-red-700 via-red-600 to-rose-700',
+      buttonText: '了解更多',
+      action: 'yuantong',
+      isCustom: true,
+    },
+    {
+      image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20smart%20elderly%20care%20technology%20AI%20healthcare%20warm%20environment&image_size=landscape_16_9',
       title: '乐龄智家',
       subtitle: 'AI陪伴，让养老更智慧',
       tag: '政府认证',
@@ -56,7 +66,7 @@ const HomePage: React.FC = () => {
       buttonText: '了解更多',
     },
     {
-      image: 'https://images.unsplash.com/photo-1544568100-847a948585b9?w=800&q=85',
+      image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20elderly%20home%20care%20service%20nursing%20warm%20friendly%20atmosphere&image_size=landscape_16_9',
       title: '居家养老服务',
       subtitle: '专业护理，贴心陪伴',
       tag: '限时优惠',
@@ -64,7 +74,7 @@ const HomePage: React.FC = () => {
       buttonText: '立即预约',
     },
     {
-      image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=85',
+      image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=happy%20elderly%20people%20participating%20in%20community%20activities%20colorful%20events&image_size=landscape_16_9',
       title: '乐龄俱乐部',
       subtitle: '多彩活动，快乐生活',
       tag: '热门推荐',
@@ -196,44 +206,72 @@ const HomePage: React.FC = () => {
               className={`absolute inset-0 transition-all duration-700 cursor-pointer ${
                 idx === bannerIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
               }`}
-              onClick={() => navigate('service-detail', { title: banner.title, price: '99' })}
             >
-              <img
-                src={banner.image}
-                alt={banner.title}
-                className="w-full h-44 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-              <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                <span className="inline-block px-3.5 py-1.5 bg-white/90 text-primary text-xs rounded-full font-bold mb-3 w-fit shadow-md">
-                  {banner.tag}
-                </span>
-                <h2 className="text-2xl font-bold text-white drop-shadow-lg mb-1.5">{banner.title}</h2>
-                <p className="text-white/90 text-sm mb-5">{banner.subtitle}</p>
-              </div>
+              {banner.isCustom ? (
+                <div className="w-full h-44 bg-gradient-to-br from-red-900 via-red-700 to-rose-600 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-yellow-400/10 rounded-full -translate-y-1/2 translate-x-1/4" />
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-orange-400/10 rounded-full translate-y-1/3 -translate-x-1/4" />
+                  <div className="absolute top-4 right-4">
+                    <div className="px-3 py-1 bg-white/15 backdrop-blur-sm rounded-full border border-white/20">
+                      <span className="text-white text-xs font-bold">20年深耕</span>
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 px-5 pt-5 pb-4 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
+                        <span className="text-yellow-200 text-xs font-medium">{banner.tag}</span>
+                      </div>
+                      <h2 className="text-xl font-bold text-white drop-shadow-lg leading-tight">{banner.title}</h2>
+                      <p className="text-white/90 text-sm">{banner.subtitle}</p>
+                    </div>
+                    <div className="flex items-end justify-between">
+                      <button
+                        className="px-4 py-1.5 bg-white/20 hover:bg-white/30 text-white text-sm font-medium rounded-full backdrop-blur-md border border-white/30 transition-all"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate('yuantong');
+                        }}
+                      >
+                        {banner.buttonText}
+                      </button>
+                      <div className="flex items-end gap-1">
+                        <div className="flex flex-col items-center">
+                          <span className="text-yellow-300 text-base font-bold">500+</span>
+                          <span className="text-white/60 text-[9px]">服务机构</span>
+                        </div>
+                        <div className="w-px h-4 bg-white/20 mx-0.5" />
+                        <div className="flex flex-col items-center">
+                          <span className="text-yellow-300 text-base font-bold">20年</span>
+                          <span className="text-white/60 text-[9px]">行业经验</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <button onClick={() => navigate('service-detail', { title: banner.title, price: '99' })}>
+                  <img
+                    src={banner.image}
+                    alt={banner.title}
+                    className="w-full h-44 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                    <span className="inline-block px-3.5 py-1.5 bg-white/90 text-primary text-xs rounded-full font-bold mb-3 w-fit shadow-md">
+                      {banner.tag}
+                    </span>
+                    <h2 className="text-2xl font-bold text-white drop-shadow-lg mb-1.5">{banner.title}</h2>
+                    <p className="text-white/90 text-sm mb-5">{banner.subtitle}</p>
+                  </div>
+                </button>
+              )}
             </div>
           ))}
           <div className="invisible">
             <div className="w-full h-44" />
           </div>
         </div>
-      </div>
-
-      {/* ====== 援通智慧入口 ====== */}
-      <div className="px-5 mt-4">
-        <button
-          className="w-full bg-gradient-to-r from-red-600 to-rose-600 rounded-[24px] p-5 shadow-xl flex items-center gap-4 text-left active:scale-95 transition-transform"
-          onClick={() => navigate('yuantong')}
-        >
-          <div className="w-14 h-14 rounded-[20px] bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0">
-            <Star className="w-7 h-7 text-white" fill="white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold text-white">援通智慧</h3>
-            <p className="text-sm text-white/80 mt-0.5">智慧养老 · 产业赋能 · 20年成果</p>
-          </div>
-          <ChevronRight className="w-6 h-6 text-white/60 flex-shrink-0" />
-        </button>
       </div>
 
       {/* ====== 快捷功能 ====== */}

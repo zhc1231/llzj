@@ -39,6 +39,7 @@ import QuickCallPage from './pages/QuickCallPage';
 import ContactChildrenPage from './pages/ContactChildrenPage';
 import NearbyServicesPage from './pages/NearbyServicesPage';
 import YuantongPage from './pages/YuantongPage';
+import HealthRemindersPage from './pages/HealthRemindersPage';
 
 const AssistantPage: React.FC = () => {
   const { navigate } = useNav();
@@ -245,6 +246,8 @@ const AppContent: React.FC = () => {
         return <NearbyServicesPage />;
       case 'yuantong':
         return <YuantongPage />;
+      case 'health-reminders':
+        return <HealthRemindersPage />;
       default:
         return <HomePage />;
     }

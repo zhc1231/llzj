@@ -64,9 +64,9 @@ const HealthDashboard: React.FC = () => {
 
   const quickServices = [
     { icon: Stethoscope, label: 'AI问诊', desc: '智能医生在线', color: 'from-sky-500 to-blue-500' },
+    { icon: Bell, label: '健康提醒', desc: '今日6个任务', color: 'from-rose-500 to-red-500', badge: '2待办' },
     { icon: Pill, label: '用药提醒', desc: '按时吃药提醒', color: 'from-emerald-500 to-green-500', badge: '3次' },
     { icon: Calendar, label: '预约挂号', desc: '三甲医院挂号', color: 'from-violet-500 to-purple-500' },
-    { icon: MessageCircle, label: '健康咨询', desc: '营养师在线', color: 'from-amber-500 to-orange-500' },
   ];
 
   const medications = [
@@ -249,6 +249,9 @@ const HealthDashboard: React.FC = () => {
                 case 'AI问诊':
                 case '健康咨询':
                   navigate('ai-consult');
+                  break;
+                case '健康提醒':
+                  navigate('health-reminders');
                   break;
                 case '用药提醒':
                   navigate('medication-detail');
